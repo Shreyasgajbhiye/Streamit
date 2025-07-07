@@ -15,5 +15,6 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 jwt:
-  secret: streamitsecret2025
+  secret: "dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5dGhhdGlzYXRsZWFzdDUxMmJpdHNsb25nZm9ySFM1MTJhbGdvcml0aG00"
   expirationMs: 86400000
+
