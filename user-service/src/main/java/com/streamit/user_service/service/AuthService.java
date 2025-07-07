@@ -22,21 +22,37 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authManager;
 
-    public String register(RegisterRequest req) {
-        if (userRepository.existsByUsername(req.getUsername()) || userRepository.existsByEmail(req.getEmail())) {
-            throw new RuntimeException("User already exists");
-        }
-
-        User user = User.builder()
-                .username(req.getUsername())
-                .email(req.getEmail())
-                .password(encoder.encode(req.getPassword()))
-                .roles(req.getRoles())
-                .build();
-
-        userRepository.save(user);
-        return jwtUtil.generateToken(user.getUsername());
+    // public String register(RegisterRequest req) {
+    //     if (userRepository.existsByUsername(req.getUsername()) || userRepository.existsByEmail(req.getEmail())) {
+    //         throw new RuntimeException("User already exists");
+    //     }
+    //     User user = User.builder()
+    //             .username(req.getUsername())
+    //             .email(req.getEmail())
+    //             .password(encoder.encode(req.getPassword()))
+    //             .roles(req.getRoles())
+    //             .build();
+    //     userRepository.save(user);
+    //     return jwtUtil.generateToken(user.getUsername());
+    // }
+   public String register(RegisterRequest request) {
+    if (userRepository.findByEmail(request.getEmail()).isPresent()) {
+        throw new RuntimeException("Email already exists");
     }
+
+    if (userRepository.findByUsername(request.getUsername()).isPresent()) {
+        throw new RuntimeException("Username already exists");
+    }
+
+    User user = new User();
+    user.setUsername(request.getUsername());
+    user.setEmail(request.getEmail());
+    user.setPassword(encoder.encode(request.getPassword()));
+    user.setRoles(request.getRoles());
+    userRepository.save(user);
+System.err.println("before jwt" + user);
+    return jwtUtil.generateToken(user.getUsername());
+}
 
     public String login(LoginRequest req) {
         authManager.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
