@@ -1,7 +1,7 @@
-package com.streamit.userservice.controller;
+package com.streamit.user_service.controller;
 
-import com.streamit.userservice.dto.*;
-import com.streamit.userservice.service.AuthService;
+import com.streamit.user_service.dto.*;
+import com.streamit.user_service.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

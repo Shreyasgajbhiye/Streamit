@@ -1,6 +1,7 @@
-package com.streamit.userservice.dto;
+package com.streamit.user_service.dto;
 
 import java.util.Set;
+
 import lombok.Data;
 
 @Data

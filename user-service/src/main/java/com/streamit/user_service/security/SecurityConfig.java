@@ -1,4 +1,4 @@
-package com.streamit.userservice.security;
+package com.streamit.user_service.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
