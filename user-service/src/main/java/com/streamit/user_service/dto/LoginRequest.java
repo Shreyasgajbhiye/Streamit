@@ -1,4 +1,4 @@
-package com.streamit.userservice.dto;
+package com.streamit.user_service.dto;
 
 import lombok.Data;
 

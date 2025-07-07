@@ -1,13 +1,17 @@
-package com.streamit.userservice.service;
+package com.streamit.user_service.service;
 
-import com.streamit.userservice.dto.*;
-import com.streamit.userservice.entity.User;
-import com.streamit.userservice.repository.UserRepository;
-import com.streamit.userservice.security.JwtUtil;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.streamit.user_service.dto.LoginRequest;
+import com.streamit.user_service.dto.RegisterRequest;
+import com.streamit.user_service.entity.User;
+import com.streamit.user_service.repository.UserRepository;
+import com.streamit.user_service.security.JwtUtil;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

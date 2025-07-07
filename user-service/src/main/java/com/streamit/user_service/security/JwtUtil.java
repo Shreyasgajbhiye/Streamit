@@ -1,4 +1,4 @@
-package com.streamit.userservice.security;
+package com.streamit.user_service.security;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;

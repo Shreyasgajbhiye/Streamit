@@ -1,9 +1,10 @@
-package com.streamit.userservice.repository;
-
-import com.streamit.userservice.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+package com.streamit.user_service.repository;
 
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.streamit.user_service.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
