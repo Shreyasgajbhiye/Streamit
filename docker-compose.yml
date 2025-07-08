@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres
+    container_name: streamit-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: userdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  user-service:
+    build: ./user-service
+    container_name: streamit-user-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
