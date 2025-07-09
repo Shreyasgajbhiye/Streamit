@@ -1,0 +1,155 @@
+# server:
+#   port: 8080
+
+# spring:
+#   application:
+#     name: api-gateway-service
+
+#   cloud:
+#     gateway:
+#       routes:
+#         - id: user-service
+#           uri: http://localhost:8081
+#           predicates:
+#             - Path=/api/user/**
+#           # Apply authentication filter to this route (but register/login are excluded in filter)
+#           filters:
+#             - StripPrefix=1
+        
+#         - id: auth-service
+#           uri: http://localhost:8082
+#           predicates:
+#             - Path=/api/auth/**
+#           # No authentication needed for auth endpoints
+#           filters:
+#             - StripPrefix=1
+
+#         # Example of how to add future services
+#         # - id: content-service
+#         #   uri: http://localhost:8083
+#         #   predicates:
+#         #     - Path=/api/content/**
+#         #   filters:
+#         #     - StripPrefix=1
+
+#         # - id: notification-service
+#         #   uri: http://localhost:8084
+#         #   predicates:
+#         #     - Path=/api/notifications/**
+#         #   filters:
+#         #     - StripPrefix=1
+
+#       # Global CORS configuration
+#       globalcors:
+#         cors-configurations:
+#           '[/**]':
+#             allowedOrigins: "*"
+#             allowedMethods:
+#               - GET
+#               - POST
+#               - PUT
+#               - DELETE
+#               - OPTIONS
+#             allowedHeaders: "*"
+#             allowCredentials: false
+
+#   main:
+#     web-application-type: reactive
+
+# # JWT Configuration
+# jwt:
+#   secret: dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5dGhhdGlzYXRsZWFzdDUxMmJpdHNsb25nZm9ySFM1MTJhbGdvcml0aG00
+
+# # Management endpoints
+# management:
+#   endpoints:
+#     web:
+#       exposure:
+#         include: health,info,gateway
+#   endpoint:
+#     health:
+#       show-details: always
+
+# # Logging
+# logging:
+#   level:
+#     org.springframework.cloud.gateway: DEBUG
+#     com.streamit.api_gateway_service: DEBUG
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: http://user-service:8081  # Use Docker service name
+          predicates:
+            - Path=/api/user/**
+          # Apply authentication filter to this route (but register/login are excluded in filter)
+          filters:
+            - StripPrefix=1
+        
+        # - id: auth-service
+        #   uri: http://auth-service:8082  # Use Docker service name
+        #   predicates:
+        #     - Path=/api/auth/**
+          # No authentication needed for auth endpoints
+          # filters:
+          #   - StripPrefix=1
+
+        # Example of how to add future services
+        # - id: content-service
+        #   uri: http://localhost:8083
+        #   predicates:
+        #     - Path=/api/content/**
+        #   filters:
+        #     - StripPrefix=1
+
+        # - id: notification-service
+        #   uri: http://localhost:8084
+        #   predicates:
+        #     - Path=/api/notifications/**
+        #   filters:
+        #     - StripPrefix=1
+
+      # Global CORS configuration
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+            allowCredentials: false
+
+  main:
+    web-application-type: reactive
+
+# JWT Configuration
+jwt:
+  secret: dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5dGhhdGlzYXRsZWFzdDUxMmJpdHNsb25nZm9ySFM1MTJhbGdvcml0aG00
+
+# Management endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+
+# Logging
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    com.streamit.api_gateway_service: DEBUG
