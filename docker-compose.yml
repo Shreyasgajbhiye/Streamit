@@ -1,4 +1,41 @@
-version: '3.8'
+# version: '3.8'
+
+# services:
+#   postgres:
+#     image: postgres
+#     container_name: streamit-postgres
+#     environment:
+#       POSTGRES_USER: postgres
+#       POSTGRES_PASSWORD: postgres
+#       POSTGRES_DB: userdb
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - pgdata:/var/lib/postgresql/data
+
+#   user-service:
+#     build: ./user-service
+#     container_name: streamit-user-service
+#     ports:
+#       - "8081:8081"
+#     depends_on:
+#       - postgres
+
+#   api-gateway-service:
+#     build: ./api-gateway-service
+#     container_name: streamit-api-gateway
+#     ports:
+#       - "8080:8080"
+#     depends_on:
+#       - user-service
+#     environment:
+#       - JWT_SECRET=dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5dGhhdGlzYXRsZWFzdDUxMmJpdHNsb25nZm9ySFM1MTJhbGdvcml0aG00
+
+# volumes:
+#   pgdata:
+
+
+
 services:
   postgres:
     image: postgres
@@ -11,6 +48,8 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - streamit-network
 
   user-service:
     build: ./user-service
@@ -19,6 +58,35 @@ services:
       - "8081:8081"
     depends_on:
       - postgres
+    networks:
+      - streamit-network
+
+  # auth-service:
+  #   build: ./auth-service
+  #   container_name: streamit-auth-service
+  #   ports:
+  #     - "8082:8082"
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - streamit-network
+
+  api-gateway-service:
+    build: ./api-gateway-service
+    container_name: streamit-api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - user-service
+      # - auth-service
+    environment:
+      - JWT_SECRET=dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5dGhhdGlzYXRsZWFzdDUxMmJpdHNsb25nZm9ySFM1MTJhbGdvcml0aG00
+    networks:
+      - streamit-network
 
 volumes:
   pgdata:
+
+networks:
+  streamit-network:
+    driver: bridge
